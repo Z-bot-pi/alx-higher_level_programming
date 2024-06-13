@@ -5,13 +5,20 @@
 import requests
 from sys import argv
 
-if __name__ == '__main__':
-
-    url = 'https://api.github.com/user'
+def main(argv):
+    """
+    Script that takes your GitHub credentials (username and password) and
+    uses the GitHub API to display your id.
+    """
     user = argv[1]
-    token = argv[2]
-    headers = {'Authorization': 'token {}'.format(token)}
+    password = argv[2]
+    response = requests.get('https://api.github.com/user',
+                            auth=HTTPBasicAuth(user, password))
+    try:
+        profile_info = response.json()
+        print(profile_info['id'])
+    except:
+        print('None')
 
-    r = requests.get(url, headers=headers)
-
-    print(r.json().get('id'))
+if __name__ == "__main__":
+    main(argv)

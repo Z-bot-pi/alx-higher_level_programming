@@ -3,19 +3,22 @@
 """
 
 import urllib.request
-from sys import argv
+from sys import argv 
 
-if __name__ == '__main__':
+
+def main(argv):
+    """
+    Sends a POST request to the passed URL with the email as a parameter,
+    and displays the body of the response (decoded in utf-8)
+    """
+    values = {'email': argv[2]}
+    data = urllib.parse.urlencode(values)
+    data = data.encode('utf8')
     url = argv[1]
-    email = {'email': argv[2]}
+    req = urllib.request.Request(url, data)
+    with urllib.request.urlopen(req) as response:
+        result = response.read()
+        print(result.decode('utf8'))
 
-    email = urllib.parse.urlencode(email)
-    email = email.encode('utf-8')
-
-    # request object
-    request = urllib.request.Request(url, email)
-
-    with urllib.request.urlopen(request) as response:
-        response = response.read()
-        response = response.decode('utf-8')
-        print(response)
+if __name__ == "__main__":
+    main(argv)
