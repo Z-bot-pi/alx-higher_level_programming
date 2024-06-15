@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 """Get list of peak in list of unsorted integers
 """
-
-
 def find_peak(list_of_integers):
     """Get list of peak in unsorted list
     """
@@ -16,7 +14,6 @@ def find_peak(list_of_integers):
         return loi[0]
 
     return recurse(loi, 0, size - 1)
-
 
 def recurse(loi, left, right):
     """Recursive component
